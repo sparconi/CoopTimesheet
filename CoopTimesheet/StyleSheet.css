@@ -1,0 +1,493 @@
+﻿body
+{
+	padding: 0px;
+	margin: 5px;
+}
+table
+{
+	border-style: none;
+	border-width: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+.HIDDEN
+{
+	display: none;
+}
+.BUTTON
+{
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+	width: 90px;
+	height: 21px;
+}
+.TASKBUTTON
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: Blue;
+	padding: 0px;
+	margin: 0px;
+	width: 12px;
+	height: 12px;
+	background-color: White;
+	cursor: pointer;
+}
+hideGridColumn
+{
+    display: none;
+}
+.TASKBUTTONOOH
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: Red;
+	padding: 0px;
+	margin: 0px;
+	width: 12px;
+	height: 12px;
+	background-color: White;
+	cursor: pointer;
+}
+.MENUBUTTON
+{
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+	width: 110px;
+	height: 25px;
+}
+.TABLEGRID
+{
+	background-color: White;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+	padding: 2;
+	text-align: center;
+}
+.GRIDVIEW
+{
+	background-color: White;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+	padding: 0 0 0 0;
+	text-align: center;
+}
+.GRIDVIEW2
+{
+	background-color: White;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+	padding: 0 0 0 0;
+}
+.GRIDHEADER2
+{
+	background-color: #ECF0F4;
+	color: Black;
+	font-family: Tahoma;
+	font-size: 8pt;
+	height: 20px;
+	padding: 0 0 0 0;
+}
+.GRIDBUTTON
+{
+	font-family: Tahoma;
+	font-size: 7pt;
+	color: Black;
+	height: 20px;
+}
+.LINK
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 8pt;
+}
+.GRIDHEADER
+{
+	background-color: #ECF0F4;
+	color: Black;
+	font-family: Tahoma;
+	font-size: 8pt;
+	height: 20px;
+	padding: 0 0 0 0;
+}
+.GRIDFOOTER
+{
+	background-color: #E8E8E8;
+}
+.CHECKBOX
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+}
+.ACTIONBAR
+{
+	border: 1px solid #C0C0C0;
+	padding: 0px 15px 0px 0px;
+	margin: 0px;
+	height: 25px;
+	background-color: #FFFFDD;
+	text-align: right;
+	vertical-align: middle;
+}
+.ACTIONBARLEFT {
+    border: 1px solid #C0C0C0;
+    padding: 0px 15px 0px 0px;
+    margin: 0px;
+    height: 25px;
+    background-color: #FFFFDE;
+    text-align: left;
+    vertical-align: middle;
+}
+.ACTIONBUTTON
+{
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+	margin-left: 1px;
+	margin-right: 1px;
+	vertical-align: middle;
+    }
+.ACTIONLINK
+{
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Blue;
+	vertical-align: middle;
+}
+.VIEWHEADER_OLD
+{
+	border-style: none none none none;
+	border-width: 0px 0px 0px 0px;
+	padding: 0px;
+	margin: 0px 0px 2px 0px;
+	height: 25px;
+	background-color: #A4B5C7;
+	text-align: left;
+	text-indent: 5px;
+	vertical-align: middle;
+}
+.VIEWHEADER
+{
+	border-style: none none solid none;
+	border-width: 0px 0px 1px 0px;
+	padding: 0px;
+	margin: 0px;
+	height: 25px;
+    background-image: url(Images/HeaderBgCoop.jpg);
+	text-indent: 10px;
+	vertical-align: middle;
+	text-align: left;
+	border-bottom-color: #C0C0C0;
+}
+.VIEWHEADER_REV
+{
+	border-style: none none solid none;
+	border-width: 0px 0px 1px 0px;
+	padding: 0px;
+	margin: 0px;
+	height: 25px;
+	background-image: url(Images/HeaderBgCoop.jpg);
+	text-indent: 10px;
+	vertical-align: middle;
+	text-align: left;
+	border-bottom-color: #C0C0C0;
+}
+.VIEWHEADER_PROJECT
+{
+	border: 1px solid #5D7B9D;
+	padding: 0px;
+	margin: 0px;
+	height: 30px;
+	background-image: url(Images/ProjectHeaderBg.jpg);
+	text-indent: 10px;
+	vertical-align: middle;
+	text-align: left;
+}
+.VIEWHEADERLABEL_PROJECT
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 11pt;
+	font-weight: bold;
+	color: #5D7B9D;
+	text-indent: 10px;
+	vertical-align: middle;
+}
+.DATA_LOAD_LABEL {
+    background-color: Transparent;
+    font-family: Tahoma;
+    font-size: 22pt;
+    font-weight: bold;
+    color: #FF0000;
+    text-indent: 10px;
+    vertical-align: middle;
+	text-align: center ;
+}
+.MASTERMENU
+{
+	border-style: none none none none;
+	border-width: 0px 0px 0px 0px;
+	padding: 0px;
+	margin: 0px;
+	vertical-align: top;
+}
+.VIEWHEADERLABELOLD
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 9pt;
+	font-weight: bold;
+	color: #5D7B9D;
+	text-indent: 10px;
+}
+.VIEWHEADERLABELBOLD
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 9pt;
+	font-weight: bold;
+	color: #5D7B9D;
+    text-align:left;
+	text-indent: 10px;
+}
+.VIEWHEADERLABEL
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 9pt;
+	font-weight: bold;
+	color: White;
+	text-indent: 10px;
+	vertical-align: middle;
+}
+.DATE
+{
+	background-color: White;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+}
+.TEXTBOX
+{
+	background-color: #FFFFDD;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+	border: 1px solid #7F9DB9;
+}
+.TEXTBOXREADONLY
+{
+	background-color: White;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+	border: 1px solid #7F9DB9;
+}
+.LABEL
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: #5D7B9D;
+}
+.REDLABEL {
+    background-color: Transparent;
+    font-family: Tahoma;
+    font-size: 8pt;
+    color: #FF0000;
+}
+.LABELNOTE {
+    background-color: Transparent;
+    font-family: Tahoma;
+    font-size: 8pt;
+    color: #FF0000;
+}
+.LABELBOLD
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 8pt;
+	font-weight: bold;
+	color: #5D7B9D;
+}
+.LABELREQUIRED
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 8pt;
+	font-weight: bold;
+	color: #5D7B9D;
+}
+.LABELTEXT
+{
+	background-color: Transparent;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+}
+.DROPDOWNLIST
+{
+	background-color: White;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+}
+.DROPDOWNLISTEDIT
+{
+	background-color: #FFFFDD;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: Black;
+}
+/* ACTION MENU */
+.ACTIONMENU
+{
+	width: 115px;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #C0C0C0;
+	vertical-align: top;
+	text-align: center;
+	background-color: #FFFFDD;
+}
+/*Modal Popup*/
+.MODALBG
+{
+	background-color: Gray;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+
+.MODALPOPUP
+{
+	background-color: #FFFFDD;
+	border-width: 3px;
+	border-style: solid;
+	border-color: Gray;
+	padding: 3px;
+	width: 250px;
+}
+
+.PANEL
+{
+	background-color: White;
+	font-family: Tahoma;
+	font-size: 8pt;
+	color: #5D7B9D;
+}
+.COLORPANEL
+{
+	border: 1px solid #C0C0C0;
+	padding: 0px;
+	margin: 1px;
+	width: 10px;
+	height: 10px;
+}
+.COLORPANELOOH
+{
+	border: 1px solid #FF0000;
+	padding: 0px;
+	margin: 1px;
+	width: 10px;
+	height: 10px;
+}
+.MILESTONE
+{
+	border: 1px solid #C0C0C0;
+	padding: 0px;
+	margin: 1px;
+	width: 12px;
+	height: 12px;
+}
+.modalBackground
+{
+	background-color: Gray;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+.modalPopupWindowHeader
+{
+	background-position: #FFFF00;
+	cursor: move;
+	font-size: 9pt;
+	font-family: Tahoma;
+	color: #000000;
+	background: #CCCCCC;
+	height: 20px;
+	text-align: left;
+	width: 100%;
+}
+.modalPopupWindow
+{
+	font-size: 9pt;
+	font-family: Tahoma;
+	color: black;
+	background-color: #FFFFCC;
+	border-width: 1px;
+	border-style: solid;
+	border-color: Black;
+	width: 600px;
+}
+
+.MPEBG
+{
+	background-color: Gray;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+.MPE
+{
+  border: solid 1px #c0c0c0;
+  background: #f0f0f0;
+  padding: 0px 10px 10px 10px;
+  position: absolute;
+  top: -1000px;
+}
+
+.PrProgress
+{
+	display: block;
+	position: absolute;
+	padding: 2px 3px;
+}
+.PrContainer
+{
+	border: solid 1px #808080;
+	border-width: 1px 0px;
+}
+.PrHeader
+{
+	background: url(Images/sprite.png) repeat-x 0px 0px;
+	border-color: #808080 #808080 #ccc;
+	border-style: solid;
+	border-width: 0px 1px 1px;
+	padding: 0px 10px;
+	color: #000000;
+	font-size: 9pt;
+	font-weight: bold;
+	line-height: 1.9;
+	white-space: nowrap;
+	font-family: arial,helvetica,clean,sans-serif;
+}
+.PrBody
+{
+	background-color: #f2f2f2;
+	border-color: #808080;
+	border-style: solid;
+	border-width: 0px 1px;
+	padding: 10px;
+}
+.PrIFrame
+{
+}
+.MESSAGE
+{
+    text-align: center;
+}

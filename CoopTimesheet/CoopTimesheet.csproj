@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D184A676-384D-4880-88E1-FE331D85B267}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CoopTimesheet</RootNamespace>
+    <AssemblyName>CoopTimesheet</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\..\ef_ProjectLog\Dev\DevPM\src\Web\ProjectLog\references\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="MetaBuilders.WebControls">
+      <HintPath>..\..\ef_ProjectLog\Dev\DevPM\src\Web\ProjectLog\references\MetaBuilders.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.Ajax">
+      <HintPath>..\..\ef_ProjectLog\Dev\DevPM\src\Web\ProjectLog\references\System.Web.Ajax.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Utilities">
+      <HintPath>..\..\ef_ProjectLog\Dev\DevPM\src\Web\ProjectLog\references\Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Winthusiasm.HtmlEditor">
+      <HintPath>..\..\ef_ProjectLog\Dev\DevPM\src\Web\ProjectLog\references\Winthusiasm.HtmlEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\TaskView.aspx" />
+    <Content Include="Admin\TeamsView.aspx" />
+    <Content Include="Admin\UserView.aspx" />
+    <Content Include="CoopTimesheet.csproj.user" />
+    <Content Include="Default.aspx" />
+    <Content Include="Home.aspx" />
+    <Content Include="Images\activity.gif" />
+    <Content Include="Images\Add.gif" />
+    <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Images\AppEmailLogo.jpg" />
+    <Content Include="Images\AppLogo.JPG" />
+    <Content Include="Images\AppLogoRed.jpg" />
+    <Content Include="Images\BannerLogo.JPG" />
+    <Content Include="Images\BannerLogo2.jpg" />
+    <Content Include="Images\BodyBg.gif" />
+    <Content Include="Images\BusinessArea.gif" />
+    <Content Include="Images\Calendar.gif" />
+    <Content Include="Images\check.png" />
+    <Content Include="Images\Chk0.gif" />
+    <Content Include="Images\Chk1.gif" />
+    <Content Include="Images\collapse.jpg" />
+    <Content Include="Images\Collapse24.png" />
+    <Content Include="Images\CoopLogo.JPG" />
+    <Content Include="Images\CoopLogo3.jpg" />
+    <Content Include="Images\cp_button.png" />
+    <Content Include="Images\Delete.gif" />
+    <Content Include="Images\delete2.png" />
+    <Content Include="Images\DlgError.png" />
+    <Content Include="Images\DlgInfo.png" />
+    <Content Include="Images\DlgWarning.png" />
+    <Content Include="Images\DocAccess.gif" />
+    <Content Include="Images\DocAcrobat.gif" />
+    <Content Include="Images\DocExcel.gif" />
+    <Content Include="Images\DocHTML.gif" />
+    <Content Include="Images\DocJPG.gif" />
+    <Content Include="Images\DocOther.gif" />
+    <Content Include="Images\DocRTF.gif" />
+    <Content Include="Images\DocText.gif" />
+    <Content Include="Images\DocWord.gif" />
+    <Content Include="Images\DocXML.gif" />
+    <Content Include="Images\DownArrow.gif" />
+    <Content Include="Images\Download.gif" />
+    <Content Include="Images\Edit.gif" />
+    <Content Include="Images\Error.jpg" />
+    <Content Include="Images\expand.jpg" />
+    <Content Include="Images\Expand24.png" />
+    <Content Include="Images\Favorites.gif" />
+    <Content Include="Images\Find24.png" />
+    <Content Include="Images\flag_green_16_h.gif" />
+    <Content Include="Images\flag_red_16_h.gif" />
+    <Content Include="Images\HeaderBg.jpg" />
+    <Content Include="Images\HeaderBgCoop.jpg" />
+    <Content Include="Images\HeaderBgCoopBlue.jpg" />
+    <Content Include="Images\HeaderBgRev.jpg" />
+    <Content Include="Images\Locations.gif" />
+    <Content Include="Images\mail_delete.png" />
+    <Content Include="Images\mail_view.png" />
+    <Content Include="Images\MenuBg.jpg" />
+    <Content Include="Images\New.gif" />
+    <Content Include="Images\NextWeek.gif" />
+    <Content Include="Images\P4CMLogo.JPG" />
+    <Content Include="Images\P4CMLogoSmall.jpg" />
+    <Content Include="Images\Permission.gif" />
+    <Content Include="Images\PreviousWeek.gif" />
+    <Content Include="Images\Print.gif" />
+    <Content Include="Images\Project16.png" />
+    <Content Include="Images\ProjectHeaderBg.jpg" />
+    <Content Include="Images\ProjectToday16.png" />
+    <Content Include="Images\ProjectYesterday16.png" />
+    <Content Include="Images\Refresh.png" />
+    <Content Include="Images\Reject24x22.png" />
+    <Content Include="Images\Save.gif" />
+    <Content Include="Images\Select.gif" />
+    <Content Include="Images\Server16.gif" />
+    <Content Include="Images\spacer.gif" />
+    <Content Include="Images\sprite.png" />
+    <Content Include="Images\System16.gif" />
+    <Content Include="Images\System24.gif" />
+    <Content Include="Images\TaskAllocated16.gif" />
+    <Content Include="Images\TaskAllocatedOutOfHours16.gif" />
+    <Content Include="Images\TaskFree16.gif" />
+    <Content Include="Images\TaskFree24.gif" />
+    <Content Include="Images\TaskFreeOutOfHours16.gif" />
+    <Content Include="Images\TaskUnavailable16.gif" />
+    <Content Include="Images\timesheet.PNG" />
+    <Content Include="Images\TrendDown.PNG" />
+    <Content Include="Images\TrendLevel.PNG" />
+    <Content Include="Images\TrendUp.PNG" />
+    <Content Include="Images\UnderConstruction.jpg" />
+    <Content Include="Images\UnderMaintenance.jpg" />
+    <Content Include="Images\UpArrow.gif" />
+    <Content Include="Images\Upload2.gif" />
+    <Content Include="Images\Versions.gif" />
+    <Content Include="Images\View2.gif" />
+    <Content Include="Scripts\UpdateProgressScript.js" />
+    <Content Include="StyleSheet.css" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\TaskView.aspx.cs">
+      <DependentUpon>TaskView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TaskView.aspx.designer.cs">
+      <DependentUpon>TaskView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TeamsView.aspx.cs">
+      <DependentUpon>TeamsView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TeamsView.aspx.designer.cs">
+      <DependentUpon>TeamsView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserView.aspx.cs">
+      <DependentUpon>UserView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserView.aspx.designer.cs">
+      <DependentUpon>UserView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Base.Master.cs">
+      <DependentUpon>Base.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Base.Master.designer.cs">
+      <DependentUpon>Base.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Alert.cs" />
+    <Compile Include="Common\CurrentUser.cs" />
+    <Compile Include="Common\Emailer.cs" />
+    <Compile Include="Common\GridFunctions.cs" />
+    <Compile Include="Common\Mailer.cs" />
+    <Compile Include="Common\ResponseHelper.cs" />
+    <Compile Include="Common\UserInfo.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Base.Master" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoopDAL\CoopDAL.csproj">
+      <Project>{116ffbad-708b-4ac7-bc5d-e6da3bbb1824}</Project>
+      <Name>CoopDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52573/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

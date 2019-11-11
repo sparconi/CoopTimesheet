@@ -1,0 +1,11 @@
+﻿BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Projects ADD
+	DesignStartDate smalldatetime NULL,
+	DeliveryStartDate smalldatetime NULL,
+	GoLiveStartDate smalldatetime NULL,
+	ProjectCloseDate smalldatetime NULL
+GO
+ALTER TABLE dbo.Projects SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT

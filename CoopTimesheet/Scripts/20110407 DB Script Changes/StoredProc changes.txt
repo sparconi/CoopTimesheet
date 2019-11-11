@@ -1,0 +1,199 @@
+﻿USE [ProjectLogTEST]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateProject]    Script Date: 04/08/2011 18:56:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdateProject]
+(
+	@ProjectID INT,
+	@UserID INT,
+	@ProjectName VARCHAR(50),
+	@ProjectDescription VARCHAR(800),
+	@RequestorName VARCHAR(50),
+	@DivisionID INT,
+	@MACRef VARCHAR(20),
+	@TelNo VARCHAR(50),
+	@Email VARCHAR(50),
+	@ProposedStartDate SMALLDATETIME,
+	@ProposedStartDateNA BIT,
+	@RequiredCompletionDate SMALLDATETIME,
+	@RequiredCompletionDateNA BIT,
+	@TimeScales VARCHAR(40),
+	@CERNumber VARCHAR(50),
+	@CERValue VARCHAR(50),
+	@ProjectManagerName VARCHAR(50),
+	@ProjectSponsor VARCHAR(100),
+	@PriorityID INT,
+	@PriorityReason VARCHAR(100),
+	@BusinessAreaID INT,
+	@ProjectResourceID INT,
+	@TDA VARCHAR(50),
+	@HLDDeliveryDate SMALLDATETIME,
+	@TriageDiscussion VARCHAR(2000),
+	@Hidden BIT,
+    @ProjectType CHAR(3),
+    @ProjectLifeCycle INT,
+    @DateTriaged SMALLDATETIME,
+    @TriageTimeText VARCHAR(30)	,
+    @DesignStartDate SMALLDATETIME,
+    @DeliveryStartDate SMALLDATETIME,
+    @GoLiveDate SMALLDATETIME,
+    @ProjectCloseDate SMALLDATETIME
+)
+AS
+BEGIN
+	SET NOCOUNT ON
+	
+	DECLARE @OldProjectType CHAR(3)
+	DECLARE @OldProjectLifeCycleText VARCHAR(30)
+	DECLARE @NewProjectLifeCycleText VARCHAR(30)
+	DECLARE @OldDesignDate smalldatetime
+	DECLARE @OldDeliveryDate smalldatetime
+	DECLARE @OldGoLiveDate smalldatetime
+	DECLARE @OldProjectCloseDate smalldatetime
+	
+	SELECT		@OldProjectType = P.ProjectType,
+				@OldProjectLifeCycleText = PLC1.ProjectLifeCycleName,
+				@OldDesignDate = P.DesignStartDate,
+				@OldDeliveryDate = P.DeliveryStartDate,
+				@OldGoLiveDate = P.GoLiveStartDate,
+				@OldProjectCloseDate = P.ProjectCloseDate,
+				@NewProjectLifeCycleText = PLC2.ProjectLifeCycleName
+	FROM		Projects P
+	LEFT JOIN	ProjectLifeCycles PLC1 ON PLC1.ProjectLifeCycleID = P.ProjectLifeCycle
+	LEFT JOIN	ProjectLifeCycles PLC2 ON PLC2.ProjectLifeCycleID = @ProjectLifeCycle	
+	WHERE		ProjectID = @ProjectID
+	
+	--DECLARE		@InfrastructureNo INT
+	
+	--SELECT		@InfrastructureNo = ISNULL(InfrastructureNo,0)
+	--FROM		Projects
+	--WHERE		ProjectID = @ProjectID
+	
+	---- IF PROJECT TYPE CHANGED TO INF, GET NEXT NUMBER (IF NECESSARY)
+	--IF @ProjectType = 'INF' AND @InfrastructureNo = 0
+	--BEGIN
+	--	SELECT	@InfrastructureNo = MAX(ISNULL(InfrastructureNo,0)) + 1
+	--	FROM	Projects
+	--	WHERE	ProjectType = 'INF'
+	--END
+	
+	---- IF CHANGED BACK TO PDT, CLEAR INFRASTRUCTURE NO
+	--IF @ProjectType = 'PDT' AND @InfrastructureNo > 0
+	--BEGIN
+	--	SET @InfrastructureNo = 0
+	--END
+		
+	
+	UPDATE		Projects
+	SET			ProjectName = @ProjectName,
+				ProjectDescription = @ProjectDescription,
+				InfrastructureNo = 0, --@InfrastructureNo,
+				RequestorName = @RequestorName,
+				DivisionID = @DivisionID,
+				MACRef = @MACRef,
+				TelNo = @TelNo,
+				Email = @Email,
+				ProposedStartDate = @ProposedStartDate,
+				ProposedStartDateNA = @ProposedStartDateNA,
+				RequiredCompletionDate = @RequiredCompletionDate,
+				RequiredCompletionDateNA = @RequiredCompletionDateNA,
+				TimeScales = @TimeScales,
+				CERNumber = @CERNumber,
+				CERValue = @CERValue,
+				ProjectManagerName = @ProjectManagerName,
+				ProjectSponsor = @ProjectSponsor,
+				PriorityID = @PriorityID,
+				PriorityReason = @PriorityReason,
+				BusinessAreaID = @BusinessAreaID,
+				ProjectResourceID = @ProjectResourceID,
+				TDA = @TDA,
+				HLDDeliveryDate = @HLDDeliveryDate,
+				TriageDiscussion = @TriageDiscussion,
+				Hidden = @Hidden,
+				ProjectType = @ProjectType,
+				ProjectLifeCycle = @ProjectLifeCycle,
+				DateTriaged = @DateTriaged,
+				TriageTimeText = @TriageTimeText,
+				DesignStartDate = @DesignStartDate,
+				DeliveryStartDate = @DeliveryStartDate,
+				GoLiveStartDate = @GoLiveDate,
+				ProjectCloseDate = @ProjectCloseDate
+	WHERE		ProjectID = @ProjectID
+	
+	IF @ProjectType <> @OldProjectType
+	BEGIN
+		EXEC AddUpdateLog @ProjectID, @UserID, 'Project (Type) changed', @OldProjectType, @ProjectType
+	END
+	IF @NewProjectLifeCycleText <> @OldProjectLifeCycleText
+	BEGIN
+		EXEC AddUpdateLog @ProjectID, @UserID, 'Project (Life Cycle) changed', @OldProjectLifeCycleText, @NewProjectLifeCycleText
+	END
+		
+	EXEC AddUpdateLog @ProjectID, @UserID, 'Project updated'
+	
+	IF @OldDesignDate is NULL
+	BEGIN	
+		EXEC UpdateMilestone 0, @ProjectID, @DesignStartDate, 'Project Design Phase', 'Design phase of the project.', @UserID
+	END
+	IF @OldDeliveryDate is NULL
+	BEGIN
+		EXEC UpdateMilestone 0, @ProjectID, @DeliveryStartDate, 'Project Delivery Phase', 'Delivery phase of the project.', @UserID
+	END
+	IF @OldGoLiveDate is NULL
+	BEGIN
+		EXEC UpdateMilestone 0, @ProjectID, @GoLiveDate, 'Project Go Live', 'Go-Live.', @UserID
+	END
+	IF @OldProjectCloseDate is NULL
+	BEGIN
+		EXEC UpdateMilestone 0, @ProjectID, @ProjectCloseDate, 'Project Closed', 'Project Closed.', @UserID
+	END
+	SET NOCOUNT OFF
+END
+
+
+USE [ProjectLogTest]
+GO
+/****** Object:  Trigger [dbo].[trgProjectsUpdateRefInfoForInserted]    Script Date: 04/08/2011 21:23:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TRIGGER [dbo].[trgProjectsUpdateRefInfoForInserted]
+   ON [dbo].[Projects]
+   AFTER INSERT, UPDATE
+AS 
+BEGIN
+	IF UPDATE(ProjectNo) OR UPDATE(ProjectName)
+	BEGIN
+		UPDATE	Projects
+		SET		RefNo = 	
+				CASE
+					WHEN P.ProjectType='PDT' THEN 
+						CASE
+							WHEN P.ProjectNo = 0 THEN '(NEW)'
+							ELSE 'PR' + RIGHT('0000' + CAST(P.ProjectNo AS VARCHAR),4)
+						END
+					WHEN P.ProjectType='BAU' THEN 'BAU'
+					WHEN P.ProjectType='INF' THEN 'PR' + RIGHT('0000' + CAST(P.ProjectNo AS VARCHAR),4)
+					WHEN P.ProjectType='PRG' THEN 'PR' + RIGHT('0000' + CAST(P.ProjectNo AS VARCHAR),4)
+					ELSE ''
+				END,
+			RefInfo =
+				CASE
+					WHEN P.ProjectType='PDT' THEN 
+						CASE
+							WHEN P.ProjectNo = 0 THEN P.ProjectName
+							ELSE 'PR' + RIGHT('0000' + CAST(P.ProjectNo AS VARCHAR),4) + ' ' + P.ProjectName
+						END
+					WHEN P.ProjectType='BAU' THEN P.ProjectName
+					WHEN P.ProjectType='INF' THEN 'PR' + RIGHT('0000' + CAST(P.ProjectNo AS VARCHAR),4) + ' ' + P.ProjectName
+					WHEN P.ProjectType='PRG' THEN 'PR' + RIGHT('0000' + CAST(P.ProjectNo AS VARCHAR),4) + ' ' + P.ProjectName
+					ELSE ''
+				END		
+		FROM	Projects P
+		JOIN	INSERTED I ON P.ProjectID = I.ProjectID					
+	END
+END
