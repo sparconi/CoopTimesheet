@@ -18,10 +18,9 @@ namespace CoopDAL
         public Boolean bCrossCharge;
         public DataTable dtTasks;
         private SqlDataReader _drTask;
-        private Int32 _iTaskId; // ****************
+        private Int32 _iTaskId; 
         public String iUserID;
-        // This is a comment? Not iUserID but return what?
-        // ****************
+       
         #endregion user variables
 
         #region Methods

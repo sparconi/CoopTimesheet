@@ -109,7 +109,8 @@ namespace CoopDAL
         #endregion method GetAllTaskdata
 
         #region method GetTaskdataByCriteria
-        public DataSet GetTaskdataByCriteria(Int32 iUserId, Int16 iTaskId, DateTime dDate, DateTime dTime) // need to create Store Procedure //  Needs editing!!!
+        // need to create Store Procedure //  Needs editing!!!
+        public DataSet GetTaskdataByCriteria(Int32 iUserId, Int16 iTaskId, DateTime dDate, DateTime dTime) 
         {
             DataSet dsTaskdata = new DataSet();
             SqlCommand cmd = new SqlCommand("GetTaskdataByCriteria", cn);
