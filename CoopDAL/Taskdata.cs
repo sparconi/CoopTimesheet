@@ -17,10 +17,11 @@ namespace CoopDAL
         public Int32 iUserId;
         public Int16 iTaskId;
         public DateTime dDate;
-        public DateTime dTime; // Stored procedure has "decimal" not "datetime"
+        public Decimal dTime; 
 
         public Int16 idayrate; // which one of these?
         public Int16 iRate; // which one of these?
+
         // public Boolean bActive;
         public DataTable dtTaskdata;
        // private Int32 _iUserId; 
