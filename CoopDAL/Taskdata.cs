@@ -9,9 +9,10 @@ using System.Data.SqlClient;
 
 namespace CoopDAL
 {
+    // Variables and methods associated with "Taskdata" class for the data access layer
     public class Taskdata : Constant
     {
-        #region taskdata variables
+        #region Taskdata variables
         public SqlConnection cn = new SqlConnection(cnstr);
         public Int32 iTaskdataId;
         public Int32 iUserId;
@@ -21,22 +22,24 @@ namespace CoopDAL
 
         public Int16 idayrate; // which one of these?
         public Int16 iRate; // which one of these?
-
-        // public Boolean bActive;
+                
         public DataTable dtTaskdata;
-       // private Int32 _iUserId; 
+       
         private Int32 _iTaskDataId;
-       // private Int32 _iTaskId;
+       
         private SqlDataReader _drTaskdata;
-        // public Int16 iTaskdataID;  ....?
-      
+
         #endregion taskdata variables
 
 
 
         #region method InsertTaskdata
+        // The InsertTaskdata method receives the user id, task id, date and time,
+        // connects to the DB and runs the stored procedure "InsertTaskdata",
+        // _iTaskdataId is generated as output.
         public Int32 InsertTaskdata(Int32 iUserId, Int16 iTaskId, DateTime dDate, DateTime dTime)
         {
+            // Open connection to the database
             cn.Open();
             SqlCommand cmd = new SqlCommand("InsertTaskdata", cn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -46,17 +49,19 @@ namespace CoopDAL
             cmd.Parameters.Add("time", SqlDbType.Time).Value = dTime;
             cmd.Parameters.Add("taskdataId", SqlDbType.Int).Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
-            //iSupplierID is set to the output parameter:
+            // _iTaskdataid is set to the output parameter and the connection to the DB is closed.
             _iTaskDataId = Convert.ToInt32(cmd.Parameters["taskdataId"].Value);
             cn.Close();
-            //iSupplierID is passed back to user
-            return _iTaskDataId;    /// Not sure....
-
-        } // Is iTaskdataID an input variable?
+            // _iTaskDataId is passed back to application.
+            return _iTaskDataId;
+        }
         #endregion method InsertTaskdata
 
         #region method UpdateTaskdata
-        public void UpdateTaskdata(Int32 iTaskdataId, Int32 iUserId, Int32 iTaskId, DateTime dDate, DateTime dTime)
+        // The UpdateTaskdata method receives the taskdataid, user id, task id, date  and time values,
+        // connects to the DB and runs the stored procedure "UpdateTaskdata",
+        // The DB values for those fields are updated in the database.
+        public void UpdateTaskdata(Int32 iTaskdataId, Int32 iUserId, Int32 iTaskId, DateTime dDate, Decimal dTime)
         {
             cn.Open();
             SqlCommand cmd = new SqlCommand("UpdateTaskdata", cn);
@@ -65,7 +70,7 @@ namespace CoopDAL
             cmd.Parameters.Add("userId", SqlDbType.Int).Value = iUserId;
             cmd.Parameters.Add("taskId", SqlDbType.Int).Value = iTaskId;
             cmd.Parameters.Add("date", SqlDbType.Date).Value = dDate;
-            cmd.Parameters.Add("time", SqlDbType.Time).Value = dTime;  // Is SqlDbType correct?
+            cmd.Parameters.Add("time", SqlDbType.Time).Value = dTime;
             cn.Close();
         } 
         #endregion method UpdateTaskdata
