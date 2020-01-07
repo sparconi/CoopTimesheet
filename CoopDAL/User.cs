@@ -21,7 +21,8 @@ namespace CoopDAL
         public Int16 idayrate; // which one of these?
         public Int16 iRate; // which one of these?
         public Boolean bActive;
-        public DataTable dtUsers;
+
+        // public DataTable dtUsers;
 
         private Int32 _iUserId;
         private SqlDataReader _drUser;

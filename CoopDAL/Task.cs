@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace CoopDAL
 {
-    // Variables and methods associated with "Task" class for the data access layer
+    // Variables and methods associated with "Task" class for the data access layer.
     public class Task : Constant
     {
         #region Task vairables
@@ -23,11 +23,13 @@ namespace CoopDAL
         public Int32 iNominalCode;
 
         private SqlDataReader _drTask;
-        private Int32 _iTaskId;
 
+        private Int32 _iTaskId;
         #endregion Task variables
 
+
         #region Methods
+
 
         #region method InsertTask
         // The InsertTask method receives the task name, crosscharge, project code, project stage, cost centre and nominal code values
@@ -35,7 +37,7 @@ namespace CoopDAL
         // iTaskId is generated as output.
         public Int32 InsertTask(String sTaskName, Boolean bCrosscharge, String sProjectCode, String sProjectStage, Int32 iCostCentre, Int32 iNominalCode)
         {
-            // Open connection to the database
+            // Open connection to the database.
             cn.Open();
             SqlCommand cmd = new SqlCommand("InsertTask", cn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -45,11 +47,11 @@ namespace CoopDAL
             cmd.Parameters.Add("projectstage", SqlDbType.VarChar, 70).Value = sProjectStage;
             cmd.Parameters.Add("costcentre", SqlDbType.Int, 32).Value = iCostCentre;
             cmd.Parameters.Add("nominalcode", SqlDbType.Int).Value = iNominalCode;
-            cmd.Parameters.Add("taskId", SqlDbType.Int).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("taskid", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             cmd.ExecuteNonQuery();
             // _iTaskID is set to the output parameter and the connection to the DB is closed.
-            _iTaskId = Convert.ToInt32(cmd.Parameters["taskId"].Value);
+            _iTaskId = Convert.ToInt32(cmd.Parameters["taskid"].Value);
             cn.Close();
             // _iTaskId passed back to application.
             return _iTaskId;    
@@ -63,7 +65,7 @@ namespace CoopDAL
         // The DB values for those fields are updated in the database.
         public void UpdateTask(Int32 iTaskId, String sTaskName, Boolean bCrossCharge, String sProjectCode, String sProjectStage, Int32 iCostCentre, Int32 iNominalCode)
         {
-            // Open connection to the database
+            // Open connection to the database.
             cn.Open();
             SqlCommand cmd = new SqlCommand("UpdateTask", cn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -79,15 +81,16 @@ namespace CoopDAL
         }
         #endregion method UpdateTask
 
-        #region method GetTasks
-        // The GetTasks method receives the task id value,
-        // connects to the DB and runs the stored procedure "GetTasks",
-        // data reader _drTask is initialised and used to read the database values for task Id, taskname and crosscharge.
-        public void GetTasks(Int32 iTaskId)
+        #region method GetTask
+        // The GetTask method receives the task id value,
+        // connects to the DB and runs the stored procedure "GetTaskbyId",
+        // data reader _drTask is initialised and used to read the database values for 
+        // task Id, task name, crosscharge, project code, project stage, cost centre and nominal code.
+        public void GetTask(Int32 iTaskId)
         {
-            // Open connection to the database
+            // Open connection to the database.
             cn.Open();
-            SqlCommand cmd = new SqlCommand("GetTasks", cn);
+            SqlCommand cmd = new SqlCommand("GetTaskById", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("taskid", SqlDbType.Int).Value = iTaskId;
 
@@ -107,20 +110,20 @@ namespace CoopDAL
                 
             }
         }
-        #endregion method GetTask
+        #endregion method GetTasks
 
         #region method GetAllTasks
-        // The GetAllTasks method retrieves task related data,
+        // The GetAllTasks method retrieves all task related data,
         // A new data set object is created to return the information,
-        // it connects to the DB and runs the stored procedure "GetAllTasks",
+        // it connects to the DB and runs the stored procedure "GetTasks",
         // A new SQL adapter object is created to return the information.
         public DataSet GetAllTasks()  
         {
             // Initialise the dataset object containing rows and records from a SQL DB.
             DataSet dsTasks = new DataSet();
-            SqlCommand cmd = new SqlCommand("GetAllTasks", cn);
+            SqlCommand cmd = new SqlCommand("GetTasks", cn);
             cmd.CommandType = CommandType.StoredProcedure;
-            // Initialise the SQL adapter, needed for a connection through to the SQL DB
+            // Initialise the SQL adapter, needed for a connection through to the SQL DB.
             SqlDataAdapter da = new SqlDataAdapter();
             cn.Open();
             cmd.ExecuteNonQuery();
@@ -137,7 +140,7 @@ namespace CoopDAL
         // A new data set object is created to return the information,
         // it connects to the DB and runs the stored procedure "GetTasksByCriteria",
         // A new SQL adapter object is created to return the information.                
-        public DataSet GetTasksByCriteria(String sTaskName, Boolean bCrossCharge)
+        public DataSet GetTasksByCriteria(String sTaskName, Boolean bCrossCharge, String sProjectCode, String sProjectStage, Int32 iCostCentre, Int32 iNominalCode)
         {
             // Initialise the dataset object containing rows and records from a SQL DB.
             DataSet dsTasks = new DataSet();
