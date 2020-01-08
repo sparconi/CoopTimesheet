@@ -133,13 +133,6 @@ namespace CoopDAL
         }
         #endregion method GetAllTaskdata
 
-        // ***************************************************
-        // Ask Paul what to call the SP, looking at it, 
-        // should be something like GetTaskdata but that then fits the same name of the Method GetTaskData above
-        // ***************************************************
-
-        // Needs editing!!!
-        // need to create Store Procedure 
         #region method GetTaskdataByCriteria
         // The GetTasksdataByCriteria method retrieves taskdata based on certain criteria,
         // A new data set object is created to return the information,

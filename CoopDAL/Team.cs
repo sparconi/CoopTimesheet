@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace CoopDAL
 {
-    // Variables and methods associated with "Teams" class for the data access layer.
+    // Variables and methods associated with "Team" class for the data access layer.
     public class Team : Constant
     {
         #region team vairables
@@ -75,9 +75,9 @@ namespace CoopDAL
         {
             // Open connection to the database.
             cn.Open();
-            SqlCommand cmd = new SqlCommand("GetTeam", cn);
+            SqlCommand cmd = new SqlCommand("GetTeamById", cn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("teamId", SqlDbType.Int).Value = iTeamId;
+            cmd.Parameters.Add("teamid", SqlDbType.Int).Value = iTeamId;
 
             // Set the SQL data reader.
             _drTeam = cmd.ExecuteReader();
@@ -87,7 +87,7 @@ namespace CoopDAL
             {
                 sTeamName = Convert.ToString(_drTeam["teamname"]);
                 iTeamManager = Convert.ToInt16(_drTeam["teammanager"]);
-                iTeamId = Convert.ToInt16(_drTeam["teamId"]);
+                iTeamId = Convert.ToInt16(_drTeam["teamid"]);
 
             }
         }
@@ -105,7 +105,7 @@ namespace CoopDAL
             // **************************************************
             // Check SP name, GetTeams or GetAllTeams ??
             // **************************************************
-            SqlCommand cmd = new SqlCommand("GetAllTeams", cn);
+            SqlCommand cmd = new SqlCommand("GetTeams", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             // Initialise the SQL adapter, needed for a connection through to the SQL DB.
             SqlDataAdapter da = new SqlDataAdapter();
