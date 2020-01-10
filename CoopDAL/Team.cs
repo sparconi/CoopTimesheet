@@ -18,8 +18,6 @@ namespace CoopDAL
         public String sTeamName;
         public Int16 iTeamManager;
 
-        // public DataTable dtTeam;
-
         private SqlDataReader _drTeam;
 
         private Int32 _iTeamId;
@@ -102,9 +100,6 @@ namespace CoopDAL
         {
             // Initialise the dataset object containing rows and records from a SQL DB.
             DataSet dsTeams = new DataSet();
-            // **************************************************
-            // Check SP name, GetTeams or GetAllTeams ??
-            // **************************************************
             SqlCommand cmd = new SqlCommand("GetTeams", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             // Initialise the SQL adapter, needed for a connection through to the SQL DB.

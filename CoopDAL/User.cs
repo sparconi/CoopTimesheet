@@ -21,7 +21,6 @@ namespace CoopDAL
         public Int16 iTeamId;
         public Int16 iDayRate;
                 
-        // public Int16 iRate; // which one of these?
         public Boolean bActive;
 
         //********************************
@@ -30,8 +29,6 @@ namespace CoopDAL
         public Boolean bIsAdmin;
         public DateTime dLastLoginDate;
 
-        // public DataTable dtUsers;
-
         private Int32 _iUserId;
         private SqlDataReader _drUser;
         #endregion user variables
@@ -39,14 +36,15 @@ namespace CoopDAL
         #region Methods
 
         // *************************************
-        // Paul McD - Does InserUser receive the active flag, Admin status and Last Login details???
+        // Paul McD - Does InsertUser receive the active flag, Admin status and Last Login details???
         // *************************************
 
         #region method InsertUser
         // The InsertUser method receives the First name, Surname, Username, Team Id, Day rate, Active flag, Admin status and LastLogin details,
         // connects to the DB and runs the stored procedure "InsertUser",
         // _iUserId is generated as output.
-        public Int32 InsertUser(String sFirstName, String sSurName, String sUserName, Int32 iTeamId, Int32 iRate, Boolean bActive, Boolean bIsAdmin, DateTime dLastLoginDate)
+        //public Int32 InsertUser(String sFirstName, String sSurName, String sUserName, Int32 iTeamId, Int32 iRate, Boolean bActive, Boolean bIsAdmin, DateTime dLastLoginDate)
+        public Int32 InsertUser(String sFirstName, String sSurName, String sUserName, Int32 iTeamId, Int32 iRate, Boolean bActive, Boolean bIsAdmin)
         {
             // Open connection to the database
             cn.Open();
@@ -59,7 +57,7 @@ namespace CoopDAL
             cmd.Parameters.Add("dayrate", SqlDbType.Int).Value = iDayRate;
             cmd.Parameters.Add("active", SqlDbType.Bit).Value = bActive;
             cmd.Parameters.Add("isadmin", SqlDbType.Bit).Value = bIsAdmin;
-            cmd.Parameters.Add("lastlogindate", SqlDbType.Date).Value = dLastLoginDate;
+//             cmd.Parameters.Add("lastlogindate", SqlDbType.Date).Value = dLastLoginDate;
             cmd.Parameters.Add("userid", SqlDbType.Int).Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
             // _iUserId is set to the output parameter and the connection to the DB is closed.
@@ -121,7 +119,7 @@ namespace CoopDAL
                 iDayRate = Convert.ToInt16(_drUser["dayrate"]);
                 bActive = Convert.ToBoolean(_drUser["active"]);
                 bIsAdmin = Convert.ToBoolean(_drUser["isadmin"]);
-                dLastLoginDate = Convert.ToDateTime(_drUser["dLastLoginDate"]);
+                dLastLoginDate = Convert.ToDateTime(_drUser["dlastlogindate"]);
                 
             }
         }

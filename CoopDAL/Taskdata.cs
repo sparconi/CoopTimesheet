@@ -18,9 +18,7 @@ namespace CoopDAL
         public Int32 iUserId;
         public Int16 iTaskId;
         public DateTime dDate;
-        public Decimal dTime; 
-
-        // public DataTable dtTaskdata;
+        public Decimal decTime; 
 
         private SqlDataReader _drTaskdata;
 
@@ -34,7 +32,7 @@ namespace CoopDAL
         // The InsertTaskdata method receives the user id, task id, date and time,
         // connects to the DB and runs the stored procedure "InsertTaskdata",
         // _iTaskDataId is generated as output.
-        public Int32 InsertTaskdata(Int32 iUserId, Int16 iTaskId, DateTime dDate, Decimal dTime)
+        public Int32 InsertTaskdata(Int32 iUserId, Int16 iTaskId, DateTime dDate, Decimal decTime)
         {
             // Open connection to the database
             cn.Open();
@@ -43,10 +41,7 @@ namespace CoopDAL
             cmd.Parameters.Add("userid", SqlDbType.Int).Value = iUserId;
             cmd.Parameters.Add("taskid", SqlDbType.Int).Value = iTaskId;
             cmd.Parameters.Add("date", SqlDbType.DateTime).Value = dDate;
-            // ****************************************
-            // Is SqlDbType correct for decimal below ?????
-            // ****************************************
-            cmd.Parameters.Add("time", SqlDbType.Decimal).Value = dTime;             
+            cmd.Parameters.Add("time", SqlDbType.Decimal).Value = decTime;             
             cmd.Parameters.Add("taskdataid", SqlDbType.Int).Direction = ParameterDirection.Output;
 
             cmd.ExecuteNonQuery();
@@ -62,7 +57,7 @@ namespace CoopDAL
         // The UpdateTaskdata method receives the taskdataid, user id, task id, date and time values,
         // connects to the DB and runs the stored procedure "UpdateTaskdata",
         // The DB values for those fields are updated in the database.
-        public void UpdateTaskdata(Int32 iTaskDataId, Int32 iUserId, Int32 iTaskId, DateTime dDate, Decimal dTime)
+        public void UpdateTaskdata(Int32 iTaskDataId, Int32 iUserId, Int32 iTaskId, DateTime dDate, Decimal decTime)
         {
             // Open connection to the database
             cn.Open();
@@ -72,7 +67,7 @@ namespace CoopDAL
             cmd.Parameters.Add("userid", SqlDbType.Int).Value = iUserId;
             cmd.Parameters.Add("taskid", SqlDbType.Int).Value = iTaskId;
             cmd.Parameters.Add("date", SqlDbType.Date).Value = dDate;
-            cmd.Parameters.Add("time", SqlDbType.Time).Value = dTime;
+            cmd.Parameters.Add("time", SqlDbType.Time).Value = decTime;
             cn.Close();
         }
         #endregion method UpdateTaskdata
@@ -100,18 +95,13 @@ namespace CoopDAL
                 iUserId = Convert.ToInt32(_drTaskdata["userid"]);
                 iTaskId = Convert.ToInt16(_drTaskdata["taskid"]);
                 dDate = Convert.ToDateTime(_drTaskdata["date"]);
-                dTime = Convert.ToDecimal(_drTaskdata["time"]);
+                decTime = Convert.ToDecimal(_drTaskdata["time"]);
 
             }
         }
         #endregion method GetTaskdata
 
-        // ***************************************************
-        // Ask Paul what to call the SP, looking at it, 
-        // should be something like GetTaskdata but that then fits the same name of the Method GetTaskData above
-        // ***************************************************
 
-        // Create Store Procedure  
         #region method GetAllTaskdata
         // The GetAllTaskdata method retrieves all taskdata related information,
         // A new data set object is created to return the information,
@@ -138,7 +128,7 @@ namespace CoopDAL
         // A new data set object is created to return the information,
         // it connects to the DB and runs the stored procedure "GetTasksdataByCriteria",
         // A new SQL adapter object is created to return the information.                
-        public DataSet GetTaskdataByCriteria(Int32 iUserId, Int16 iTaskId, DateTime dDate, DateTime dTime) 
+        public DataSet GetTaskdataByCriteria(int iUserId, int iTaskId, DateTime dDate, Decimal dTime) 
         {
             // Initialise the dataset object containing rows and records from a SQL DB.
             DataSet dsTaskdata = new DataSet();
@@ -153,10 +143,10 @@ namespace CoopDAL
             param.Value = iTaskId;
             param = cmd.Parameters.Add("@Date", SqlDbType.DateTime);
             param.Value = dDate;
-            param = cmd.Parameters.Add("@Time", SqlDbType.DateTime);
-            param.Value = dTime;
-
-
+            param = cmd.Parameters.Add("@Time", SqlDbType.Decimal);
+            {
+                param.Precision = 18; param.Scale = 2; param.Value = dTime;
+            }
             cn.Open();
             cmd.ExecuteNonQuery();
             da.SelectCommand = cmd;
