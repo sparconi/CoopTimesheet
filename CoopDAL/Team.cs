@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Data;
 using System.Data.Sql;
 using System.Data.SqlClient;
+using CoopDAL.Connection;
 
 namespace CoopDAL
 {
@@ -69,25 +70,53 @@ namespace CoopDAL
         // connects to the DB and runs the stored procedure "GetTeamById",
         // data reader _drTeam is initialised and used to read the database values for 
         // Team name, Team manager and Team Id.
-        public void GetTeam(Int32 iTeamId)
+        public static DataRow GetTeam(int iTeamId)
         {
             // Open connection to the database.
-            cn.Open();
-            SqlCommand cmd = new SqlCommand("GetTeamById", cn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("teamid", SqlDbType.Int).Value = iTeamId;
-
-            // Set the SQL data reader.
-            _drTeam = cmd.ExecuteReader();
-
-            // While loop to go through the data in the SQL reader.
-            while (_drTeam.Read())
+            //cn.Open();
+            //SqlCommand cmd = new SqlCommand("GetTeamById", cn);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.Parameters.Add("teamid", SqlDbType.Int).Value = iTeamId;
+            //cn.Open();
+            SqlConnection cn = new SqlConnection
             {
-                sTeamName = Convert.ToString(_drTeam["teamname"]);
-                iTeamManager = Convert.ToInt16(_drTeam["teammanager"]);
-                iTeamId = Convert.ToInt16(_drTeam["teamid"]);
+                ConnectionString = DataConnection.ConnectionString
+            };
+            //SqlCommand cmd2 = new SqlCommand;
+            //cmd2.Connection = cn;
+            //cmd2.CommandText = "Get....";
+            //cmd2.CommandType = CommandType.StoredProcedure;
 
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cn,
+                CommandText = "GetTeamUserById",
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.Add(new SqlParameter("@teamid", SqlDbType.Int)).Value = iTeamId;
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            DataRow row = null;
+            if (dr != null)
+            {
+                DataTable dt = new DataTable();
+                dt.Load(dr);
+                row = dt.Rows.Count > 0 ? dt.Rows[0] : null;
             }
+            cn.Close();
+            return row;
+
+            //// Set the SQL data reader.
+            //_drTeam = cmd.ExecuteReader();
+
+            //// While loop to go through the data in the SQL reader.
+            //while (_drTeam.Read())
+            //{
+            //    sTeamName = Convert.ToString(_drTeam["teamname"]);
+            //    iTeamManager = Convert.ToInt16(_drTeam["teammanager"]);
+            //    iTeamId = Convert.ToInt16(_drTeam["teamid"]);
+
+            //}
         }
         #endregion method GetTeam
 

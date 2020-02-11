@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Data;
 using System.Data.Sql;
 using System.Data.SqlClient;
+using CoopDAL.Connection;
 
 namespace CoopDAL
 {
@@ -65,6 +66,27 @@ namespace CoopDAL
             cn.Close();
             // _iUserId is passed back to application.
             return _iUserId;
+        }
+
+        public static DataTable GetAuthorisingManagersDDL()
+        {
+            SqlConnection cn = new SqlConnection
+            {
+                ConnectionString = DataConnection.ConnectionString
+            };
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cn,
+                CommandText = "GetAuthorisingManagersDDL",
+                CommandType = CommandType.StoredProcedure
+            };
+
+            cn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(dr);
+            cn.Close();
+            return dt;
         }
         #endregion method InserUser
 
