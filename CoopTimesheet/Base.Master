@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-	<title>P4CM Log</title>
+	<title>Timesheet</title>
 	<link href="StyleSheet.css" rel="stylesheet" type="text/css" />
 
 	<script type="text/javascript">
@@ -28,7 +28,7 @@
 </head>
 <body>
 	<form id="form1" runat="server">
-    <cc1:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" CombineScripts="true" EnableHistory="true">
+    <cc1:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" CombineScripts="true" EnableHistory="true" >
 		<Scripts>
 			<asp:ScriptReference Path="~/Scripts/UpdateProgressScript.js" />
 		</Scripts>
@@ -51,7 +51,7 @@
 					<asp:Label ID="lblMessage" runat="server"
 					BackColor="ActiveBorder" Font-Bold="True" Font-Size="Large" ForeColor="BlueViolet" Visible="True" Width="100%"
                     CssClass="MESSAGE">
-                        &nbsp;•&nbsp;Please ensure you only have ONE P4CM Log window open •&nbsp;
+                        &nbsp;•&nbsp;Please ensure you only have ONE Timesheet window open •&nbsp;
                     </asp:Label>
             </td>
         </tr>

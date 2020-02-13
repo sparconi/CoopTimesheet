@@ -2,85 +2,136 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Data;
 using System.Data.Sql;
 using System.Data.SqlClient;
+using CoopDAL.Connection;
 
 namespace CoopDAL
 {
+    // Variables and methods associated with "Team" class for the data access layer.
     public class Team : Constant
     {
         #region team vairables
         public SqlConnection cn = new SqlConnection(cnstr);
         public Int16 iTeamId;
-        public String sTeamname;
-        public Int16 iTeammanager;
+        public String sTeamName;
+        public Int16 iTeamManager;
+
+        private SqlDataReader _drTeam;
 
         private Int32 _iTeamId;
-        private SqlDataReader _drTeam;
-        public DataTable dtTeam;
         #endregion team variables
 
 
         #region method InsertTeam
-        public Int32 InsertTeam(String sTeamname, Int16 iTeammanager)
+        // The InsertTeam method receives the Team name and Team manager,
+        // connects to the DB and runs the stored procedure "InsertTeam",
+        // _iTeamId is generated as output.
+        public Int32 InsertTeam(String sTeamName, Int16 iTeamManager)
         {
+            // Open connection to the database
             cn.Open();
             SqlCommand cmd = new SqlCommand("InsertTeam", cn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("teamname", SqlDbType.VarChar, 70).Value = sTeamname;
-            cmd.Parameters.Add("teammanager", SqlDbType.Int).Value = iTeammanager;
+            cmd.Parameters.Add("teamname", SqlDbType.VarChar, 70).Value = sTeamName;
+            cmd.Parameters.Add("teammanager", SqlDbType.Int).Value = iTeamManager;
             cmd.Parameters.Add("teamId", SqlDbType.Int).Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
-            //iSupplierID is set to the output parameter:
+            // _iTeamId is set to the output parameter and the connection to the DB is closed.
             _iTeamId = Convert.ToInt16(cmd.Parameters["TeamID"].Value);
             cn.Close();
-            //iSupplierID is passed back to user
-            return _iTeamId;    /// Not sure....
+            // _iTeamId is passed back to application.
+            return _iTeamId;
 
         }
         #endregion method InsertTeam
 
         #region method UpdateTeam
-        public void UpdateTeam(Int16 iTeamId, String sTeamname, Int16 iTeammanager)
+        // The UpdateTeam method receives the Team Id, Team name and Team manager,
+        // connects to the DB and runs the stored procedure "UpdateTeam",
+        // The DB values for those fields are updated in the database.
+        public void UpdateTeam(Int16 iTeamId, String sTeamName, Int16 iTeamManager)
         {
+            // Open connection to the database
             cn.Open();
             SqlCommand cmd = new SqlCommand("UpdateTeam", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("teamId", SqlDbType.Int).Value = iTeamId;
-            cmd.Parameters.Add("teamname", SqlDbType.VarChar, 70).Value = sTeamname;
-            cmd.Parameters.Add("teammanager", SqlDbType.Int).Value = iTeammanager;
+            cmd.Parameters.Add("teamname", SqlDbType.VarChar, 70).Value = sTeamName;
+            cmd.Parameters.Add("teammanager", SqlDbType.Int).Value = iTeamManager;
             cn.Close();
         }
         #endregion method UpdateTeam
 
         #region method GetTeam
-        public void GetTeam(Int32 iTeamId)
+        // The GetTeam method receives the team Id value,
+        // connects to the DB and runs the stored procedure "GetTeamById",
+        // data reader _drTeam is initialised and used to read the database values for 
+        // Team name, Team manager and Team Id.
+        public static DataRow GetTeam(int iTeamId)
         {
-            cn.Open();
-            SqlCommand cmd = new SqlCommand("GetTeam", cn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("teamId", SqlDbType.Int).Value = iTeamId;
-
-            _drTeam = cmd.ExecuteReader();
-
-            while (_drTeam.Read())
+            // Open connection to the database.
+            //cn.Open();
+            //SqlCommand cmd = new SqlCommand("GetTeamById", cn);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //cmd.Parameters.Add("teamid", SqlDbType.Int).Value = iTeamId;
+            //cn.Open();
+            SqlConnection cn = new SqlConnection
             {
-                sTeamname = Convert.ToString(_drTeam["teamname"]);
-                iTeammanager = Convert.ToInt16(_drTeam["teammanager"]);
-                iTeamId = Convert.ToInt16(_drTeam["teamId"]);
+                ConnectionString = DataConnection.ConnectionString
+            };
+            //SqlCommand cmd2 = new SqlCommand;
+            //cmd2.Connection = cn;
+            //cmd2.CommandText = "Get....";
+            //cmd2.CommandType = CommandType.StoredProcedure;
 
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = cn,
+                CommandText = "GetTeamUserById",
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.Add(new SqlParameter("@teamid", SqlDbType.Int)).Value = iTeamId;
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            DataRow row = null;
+            if (dr != null)
+            {
+                DataTable dt = new DataTable();
+                dt.Load(dr);
+                row = dt.Rows.Count > 0 ? dt.Rows[0] : null;
             }
+            cn.Close();
+            return row;
+
+            //// Set the SQL data reader.
+            //_drTeam = cmd.ExecuteReader();
+
+            //// While loop to go through the data in the SQL reader.
+            //while (_drTeam.Read())
+            //{
+            //    sTeamName = Convert.ToString(_drTeam["teamname"]);
+            //    iTeamManager = Convert.ToInt16(_drTeam["teammanager"]);
+            //    iTeamId = Convert.ToInt16(_drTeam["teamid"]);
+
+            //}
         }
         #endregion method GetTeam
 
         #region method GetAllTeams
-        public DataSet GetAllTeams()  // need to create Store Procedure
+        // The GetAllTeams method retrieves all team related data,
+        // A new data set object is created to return the information,
+        // it connects to the DB and runs the stored procedure "GetTeams",
+        // A new SQL adapter object is created to return the information.
+        public DataSet GetAllTeams()  
         {
+            // Initialise the dataset object containing rows and records from a SQL DB.
             DataSet dsTeams = new DataSet();
-            SqlCommand cmd = new SqlCommand("GetAllTeams", cn);
+            SqlCommand cmd = new SqlCommand("GetTeams", cn);
             cmd.CommandType = CommandType.StoredProcedure;
+            // Initialise the SQL adapter, needed for a connection through to the SQL DB.
             SqlDataAdapter da = new SqlDataAdapter();
             cn.Open();
             cmd.ExecuteNonQuery();
@@ -93,17 +144,25 @@ namespace CoopDAL
         #endregion method GetAllTeams
 
         #region method GetTeamByCriteria
-        public DataSet GetTeamByCriteria(String sTeamname, Int32 iTeammanager) // need to create Store Procedure
+        // The GetTeamByCriteria method retrieves team info based on certain criteria,
+        // A new data set object is created to return the information,
+        // it connects to the DB and runs the stored procedure "GetTeamByCriteria",
+        // A new SQL adapter object is created to return the information.                
+
+        // Create Store Procedure
+        public DataSet GetTeamByCriteria(String sTeamName, Int32 iTeamManager) 
         {
+            // Initialise the dataset object containing rows and records from a SQL DB.
             DataSet dsTeams = new DataSet();
             SqlCommand cmd = new SqlCommand("GetTeamByCriteria", cn);
             cmd.CommandType = CommandType.StoredProcedure;
+            // Initialise the SQL adapter, needed for a connection through to the SQL DB.
             SqlDataAdapter da = new SqlDataAdapter();
             SqlParameter param = new SqlParameter();
             param = cmd.Parameters.Add("@TeamName", SqlDbType.VarChar);
-            param.Value = sTeamname;
+            param.Value = sTeamName;
             param = cmd.Parameters.Add("@TeamManager", SqlDbType.Int);
-            param.Value = iTeammanager;
+            param.Value = iTeamManager;
                        
             cn.Open();
             cmd.ExecuteNonQuery();
